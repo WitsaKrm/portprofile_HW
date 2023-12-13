@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Java Lab</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="w3-black">
+    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+      <img src="./assets/profilesvg.svg" style="width: 100%" />
+      <a
+        href="./index.html"
+        class="w3-bar-item w3-button w3-padding-large w3-black"
+      >
+        <i class="fa fa-home w3-xxlarge"></i>
+        <p>HOME</p>
+      </a>
+      <a
+        href="./index.html#about"
+        class="w3-bar-item w3-button w3-padding-large w3-hover-black"
+      >
+        <i class="fa fa-user w3-xxlarge"></i>
+        <p>ABOUT</p>
+      </a>
+      <a
+        href="./java.html"
+        class="w3-bar-item w3-button w3-padding-large w3-hover-black"
+      >
+        <i class="fa fa-code w3-xxlarge"></i>
+        <p>JAVA</p>
+      </a>
+      <a
+        href="./api.html"
+        class="w3-bar-item w3-button w3-padding-large w3-hover-black"
+      >
+        <i class="fa fa-cogs w3-xxlarge"></i>
+        <p>API</p>
+      </a>
+      <a
+        href="./index.html#contact"
+        class="w3-bar-item w3-button w3-padding-large w3-hover-black"
+      >
+        <i class="fa fa-envelope w3-xxlarge"></i>
+        <p>CONTACT</p>
+      </a>
+    </nav>
+    <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+      <div
+        class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small"
+      >
+        <a
+          href="./index.html"
+          class="w3-bar-item w3-button"
+          style="width: 20% !important"
+          >HOME</a
+        >
+        <a
+          href="./index.html#about"
+          class="w3-bar-item w3-button"
+          style="width: 20% !important"
+          >ABOUT</a
+        >
+        <a
+          href="./java.html"
+          class="w3-bar-item w3-button"
+          style="width: 20% !important"
+          >JAVA</a
+        >
+        <a
+          href="./api.html"
+          class="w3-bar-item w3-button"
+          style="width: 20% !important"
+          >API</a
+        >
+        <a
+          href="./index.html#contact"
+          class="w3-bar-item w3-button"
+          style="width: 20% !important"
+          >CONTACT</a
+        >
+      </div>
+    </div>
+
+    <div class="w3-padding-large" id="main">
+      <h1>Java Lab</h1>
+      <hr />
+      <div>
+        <h3>A - Z</h3>
+        <p id="alphebet">Hi Alphabet</p>
+        <button onclick="printAlphabet()">GoGo</button>
+      </div>
+      <hr />
+      <div>
+        <h3>Date To Seconds</h3>
+        <p id="datetosec">Date - second</p>
+        <form onsubmit="event.preventDefault(); dateToSecond();">
+          <input type="date" id="inputDate" />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <hr />
+      <div>
+        <h3>Grade of Score</h3>
+        <p id="grade">Grade is ...!!</p>
+        <form onsubmit="event.preventDefault(); gradeScore()">
+          <input type="number" id="inputScore" />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <hr />
+      <div id="guess-nickname">
+        <h3>Guess My Nickname..?</h3>
+        <p id="resultnn">K ...🤔🤔🤔</p>
+        <button onclick="guessNickname()">Guess My Nickname</button>
+      </div>
+      <hr />
+      <div>
+        <h1>Find the length of the circle.</h1>
+        <p>Input circle radius :</p>
+        <p id="resultcc"></p>
+        <form
+          id="circle-form"
+          onsubmit="event.preventDefault(); calculateCircumference(event)"
+        >
+          <input
+            type="number"
+            placeholder="Enter radius"
+            id="radius-input"
+            required
+          />
+          <button type="submit">Calculate</button>
+        </form>
+      </div>
+      <hr />
+      <div>
+        <h1>Factorial Calculator</h1>
+        <p>Input number</p>
+        <form id="fact" onsubmit="event.preventDefault(); factorial()">
+          <input
+            type="number"
+            placeholder="Enter a number"
+            id="fact-number"
+            required
+          />
+          <button type="submit">Go</button>
+        </form>
+      </div>
+      <hr />
+      <h1>my Activity</h1>
+
+      <canvas id="activityChart" width="400" height="100"></canvas>
+      <hr />
+      <h1>Country By Population</h1>
+      <canvas id="populationChart" width="400" height="150"></canvas>
+      <hr />
+    </div>
+
+    <script>
+      const activities = ["ดูหนัง", "อบรม", "นอน", "เล่นเกม", "วิ่ง"];
+      const times = [3, 9, 6, 2, 1];
+      const activityId = "activityChart";
+      const activityLabel = "Time Spent (hours)";
+      
+      function api() {
+        fetch(
+          "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-population.json"
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            createChart(
+              data.map((item) => item.population),
+              data.map((item) => item.country),
+              "populationChart",
+              "Population (Millions)",
+              "bar"
+            );
+          })
+          .catch((error) => console.error(error));
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        api();
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        createChart(times, activities, activityId, activityLabel, "line");
+      });
+      function createChart(Y, X, chartId, label, type) {
+        const ctx = document.getElementById(chartId).getContext("2d");
+        new Chart(ctx, {
+          type: type,
+          data: {
+            labels: X,
+            datasets: [
+              {
+                label: label,
+                data: Y,
+                backgroundColor: [
+                  "rgba(255, 99, 132, 1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+      function factorial() {
+        let numberInput = document.getElementById("fact-number");
+        let fact = 1;
+        let number = Number(numberInput.value);
+        if (isNaN(number)) {
+          alert("Invalid input. Please enter a number.");
+          return;
+        }
+        for (let i = 2; i <= number; i++) {
+          fact *= i;
+        }
+        alert(`Factorial of ${number} is ${fact}`);
+      }
+      function calculateCircumference() {
+        const radiusInput = document.getElementById("radius-input");
+        console.log(radiusInput.value);
+        const radius = Number(radiusInput.value);
+        if (isNaN(radius) || radius < 0) {
+          alert("Please enter a valid positive number for the radius.");
+          radiusInput.focus();
+          return;
+        }
+        const circumference = 2 * Math.PI * radius;
+        console.log(circumference);
+        const resultElement = document.getElementById("resultcc");
+        resultElement.textContent = `The circumference of the circle is: ${circumference.toFixed(
+          2
+        )}`;
+        radiusInput.value = "";
+      }
+      function guessNickname() {
+        const nicknameInput = prompt("What do you think my nickname is?");
+        const resultElement = document.getElementById("resultnn");
+
+        if (nicknameInput.toLowerCase() === "krm") {
+          resultElement.textContent =
+            "🎉 You guessed it! My nickname is Krm. 😎";
+        } else {
+          resultElement.textContent = `Not ${nicknameInput}!! 🤔 The answer is Krm.`;
+        }
+      }
+      function gradeScore() {
+        const score = document.getElementById("inputScore").value;
+        if (!isNaN(score)) {
+          if (score >= 80) {
+            document.getElementById("grade").textContent = "Your grade is A!";
+          } else if (score >= 70) {
+            document.getElementById("grade").textContent = "Your grade is B!";
+          } else if (score >= 60) {
+            document.getElementById("grade").textContent = "Your grade is C!";
+          } else if (score >= 50) {
+            document.getElementById("grade").textContent = "Your grade is D!";
+          } else {
+            document.getElementById("grade").textContent = "Your grade is F!";
+          }
+        } else {
+          document.getElementById("grade").textContent =
+            "Invalid input. Please enter a number.";
+        }
+      }
+      function dateToSecond() {
+        const inputDate = document.getElementById("inputDate").value;
+        if (!Date.parse(inputDate)) {
+          document.getElementById("datetosec").textContent =
+            "Please enter a valid date";
+          return;
+        }
+        const currentDate = new Date();
+        const seconds = Math.floor((currentDate - new Date(inputDate)) / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const formattedTime = `${hours}:${minutes % 60}:${seconds % 60}`;
+        document.getElementById("datetosec").textContent = `Date: ${new Date(
+          inputDate
+        ).toLocaleDateString()} - Seconds: ${seconds}`;
+      }
+      function printAlphabet() {
+        const alphabet = Array.from({ length: 26 }, (_, index) =>
+          String.fromCharCode(65 + index)
+        );
+        let currentLetter = 0;
+        function printLetter(index) {
+          if (index > alphabet.length) {
+            document.getElementById("alphebet").textContent = "Finished!";
+            document.querySelector("#main button").style.display = "block";
+            return;
+          }
+
+          const letter = alphabet[index];
+          document.getElementById("alphebet").textContent = letter;
+
+          setTimeout(() => printLetter(index + 1), 1000);
+        }
+        document.querySelector("#main button").style.display = "none";
+
+        printLetter(currentLetter);
+      }
+      printAlphabet();
+    </script>
+  </body>
+</html>
